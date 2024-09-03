@@ -32,7 +32,7 @@ $(NAME): $(OBJS)
 	@echo "$(BOLD)$(LIGHT_BLUE)Create $(NAME)$(RESET)"
 
 .c.o:
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -I $(INCLUDES) -c $< -o $@
 
 clean:
 	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning objects...$(RESET)"
@@ -42,7 +42,7 @@ clean:
 fclean: clean
 	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning $(NAME)...$(RESET)"
 	@$(RM) $(NAME)
-	@echo "$(BOLD)$(LIGHT_BLUE)ALL Cleaning Complete!$(RESET)"
+	@echo "$(BOLD)$(LIGHT_BLUE)ALL Cleaning $(NAME) Complete!$(RESET)"
 
 re: fclean all
 

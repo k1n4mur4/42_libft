@@ -6,11 +6,11 @@
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 03:04:38 by kinamura          #+#    #+#             */
-/*   Updated: 2024/08/13 14:56:01 by kinamura         ###   ########.fr       */
+/*   Updated: 2024/09/03 23:51:04 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/ft_printf.h"
+#include "ft_printf.h"
 
 int	ft_outchar(const char c)
 {
