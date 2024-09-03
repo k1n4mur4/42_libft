@@ -6,6 +6,9 @@ AR			=	ar rcs
 
 SRCS_DIR	=	./srcs
 LIBFT_DIR	=	$(SRCS_DIR)/libft/srcs
+GNL_DIR		=	$(SRCS_DIR)/get_next_line/srcs
+PRINTF_DIR	=	./srcs/ft_printf/srcs
+
 CTYPE_DIR	=	$(LIBFT_DIR)/ctype
 LIST_DIR	=	$(LIBFT_DIR)/list
 MATH_DIR	=	$(LIBFT_DIR)/math
@@ -13,8 +16,6 @@ MEMORY_DIR	=	$(LIBFT_DIR)/memory
 STDIO_DIR	=	$(LIBFT_DIR)/stdio
 STDLIB_DIR	=	$(LIBFT_DIR)/stdlib
 
-GNL_DIR		=	$(SRCS_DIR)/get_next_line/srcs
-PRINTF_DIR	=	./srcs/ft_printf/srcs
 
 INCLUDES	=	./includes
 
