@@ -16,7 +16,6 @@ MEMORY_DIR	=	$(LIBFT_DIR)/memory
 STDIO_DIR	=	$(LIBFT_DIR)/stdio
 STDLIB_DIR	=	$(LIBFT_DIR)/stdlib
 
-
 INCLUDES	=	./includes
 
 SRCS		=	$(wildcard $(LIBFT_DIR)/*.c $(CTYPE_DIR)/*.c $(LIST_DIR)/*.c \
