@@ -15,12 +15,13 @@ MATH_DIR	=	$(LIBFT_DIR)/math
 MEMORY_DIR	=	$(LIBFT_DIR)/memory
 STDIO_DIR	=	$(LIBFT_DIR)/stdio
 STDLIB_DIR	=	$(LIBFT_DIR)/stdlib
+STRING_DIR	=	$(LIBFT_DIR)/string
 
 INCLUDES	=	./includes
 
 SRCS		=	$(wildcard $(LIBFT_DIR)/*.c $(CTYPE_DIR)/*.c $(LIST_DIR)/*.c \
 					$(MATH_DIR)/*.c $(MEMORY_DIR)/*.c $(STDIO_DIR)/*.c $(MATH_DIR)/*.c \
-					$(STDLIB_DIR)/*.c $(GNL_DIR)/*.c $(PRINTF_DIR)/*.c)
+					$(STDLIB_DIR)/*.c $(GNL_DIR)/*.c $(PRINTF_DIR)/*.c $(STRING_DIR)/*.c)
 OBJS		=	$(SRCS:.c=.o)
 
 RESET		=	\033[0m

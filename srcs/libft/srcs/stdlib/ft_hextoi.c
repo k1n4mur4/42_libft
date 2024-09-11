@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_hextoi.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/27 13:46:18 by kinamura          #+#    #+#             */
-/*   Updated: 2024/09/12 05:05:25 by kinamura         ###   ########.fr       */
+/*   Created: 2024/09/12 05:16:21 by kinamura          #+#    #+#             */
+/*   Updated: 2024/09/12 05:16:56 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+int	ft_hextoi(int c)
 {
-	return ((int)ft_strtol(str, NULL, 10));
+	if (ft_isdigit(c))
+		return (c - '0');
+	if (c >= 'A' && c <= 'F')
+		return (c - 'A' + 10);
+	if (c >= 'a' && c <= 'f')
+		return (c - 'a' + 10);
+	return (-1);
 }
