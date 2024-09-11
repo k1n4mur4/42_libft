@@ -6,48 +6,73 @@
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:10:51 by kinamura          #+#    #+#             */
-/*   Updated: 2024/09/11 17:25:47 by kinamura         ###   ########.fr       */
+/*   Updated: 2024/09/12 05:24:55 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft__space_sign(char *str, char **endptr)
+int	ft__space_sign(char **str)
 {
-	if (endptr != NULL && *str == '\0')
-		*endptr = (char *)str;
-	while (ft_isspace(*str))
-		str++;
-	str += (*str == '+' || *str == '-');
-	if (endptr != NULL && *str == '\0')
-		*endptr = (char *)str;
-	return ((*str - 1  == '+' || *str - 1 == '-'));
+	while (ft_isspace(**str))
+		(*str)++;
+	if (**str == '-')
+	{
+		(*str)++;
+		return (-1);
+	}
+	else if (**str == '+')
+		(*str)++;
+	return (1);
+}
+
+void	ft__base_check(char **ptr, int *base)
+{
+	if (*base == 0)
+	{
+		if (**ptr == '0')
+		{
+			if (*(*ptr + 1) == 'x' || *(*ptr + 1) == 'X')
+			{
+				*base = 16;
+				*ptr += 2;
+			}
+			else
+				*base = 8;
+		}
+		else
+			*base = 10;
+	}
+	else if (*base == 16 && **ptr == '0' \
+			&& (*(*ptr + 1) == 'x' || *(*ptr + 1) == 'X'))
+		*ptr += 2;
 }
 
 long	ft_strtol(const char *str, char **endptr, int base)
 {
-	char		*ptr;
+	char		*p;
 	int			sign;
 	long		ret;
+	int			digit;
 
-	ptr = (char *)str;
-	sign = 1;
-	if (ft__space_sign(ptr, endptr))
-		if ((*ptr - 1) == '-')
-			sign = -1;
+	p = (char *)str;
+	sign = ft__space_sign(&p);
+	ft__base_check(&p, &base);
 	ret = 0;
-	while (ft_isdigit(*ptr))
+	while ((base == 16 && ft_ishexdigit(*p)) || (base != 16 && ft_isdigit(*p)))
 	{
-		if (sign == 1 || ((LONG_MAX - (*ptr - '0')) / base <= ret))
+		if (base == 16)
+			digit = ft_hextoi(*p);
+		else
+			digit = (*p - '0');
+		if (sign == 1 && ((LONG_MAX - digit) / base < ret))
 			return (LONG_MAX);
-		else if (sign == -1 || ((LONG_MIN + (*ptr - '0'))/ base) >= ret)
+		else if (sign == -1 && ((LONG_MIN + digit) / base > -ret))
 			return (LONG_MIN);
-		ret = ret * base + sign * (*ptr - '0');
-		ptr++;
+		ret = ret * base + digit;
+		p++;
 	}
-	if (endptr != NULL && *ptr == '\0')
-		*endptr = (char *)str;
-	else if (endptr != NULL)
-		*endptr = (char *)ptr;
+	if (endptr != NULL)
+		*endptr = p;
 	return (sign * ret);
 }
