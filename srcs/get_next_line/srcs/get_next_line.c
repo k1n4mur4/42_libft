@@ -6,7 +6,7 @@
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 16:47:52 by kinamura          #+#    #+#             */
-/*   Updated: 2024/09/03 23:50:06 by kinamura         ###   ########.fr       */
+/*   Updated: 2024/09/12 05:29:10 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,26 +125,3 @@ char	*get_next_line(int fd)
 	str = ft_next_str(str);
 	return (line);
 }
-
-// #include <stdio.h>
-// #include <stdlib.h>
-// #include <string.h>
-// #include <fcntl.h>
-// int main (void)
-// {
-//     char *line;
-//     int fd;
-//     int i = 1;
-//     fd = open("test", O_RDONLY);
-//     while (42)
-//     {
-//         printf("%d:",i);
-//         line = get_next_line(fd);
-//         if (!line)
-//             break ;
-//         printf("%s", line);
-//         i++;
-//     }
-//     close(fd);
-//     return (0);
-// }
