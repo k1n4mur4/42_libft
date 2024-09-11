@@ -1,41 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/27 13:46:18 by kinamura          #+#    #+#             */
-/*   Updated: 2024/09/03 23:50:06 by kinamura         ###   ########.fr       */
+/*   Created: 2024/09/10 12:07:03 by kinamura          #+#    #+#             */
+/*   Updated: 2024/09/10 12:07:04 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+long	ft_atol(const char *str)
 {
-	long long	ln;
-	int			sign;
+	int		sign;
+	long	num;
 
-	sign = 1;
-	ln = 0;
+	if (!str)
+		return (0);
 	while (ft_isspace(*str))
 		str++;
-	if (*str == '-' || *str == '+')
+	sign = 1;
+	if (*str == '+' || *str == '-')
 	{
 		if (*str++ == '-')
 			sign = -1;
 	}
+	num = 0;
 	while (ft_isdigit(*str))
 	{
-		ln = 10 * ln + (*str - '0');
+		if (sign == 1 && ((LONG_MAX - (*str - '0')) / 10 < num))
+			return (LONG_MAX);
+		else if (sign == -1 && ((LONG_MIN + (*str - '0')) / 10 > -num))
+			return (LONG_MIN);
+		num = 10 * num + (*str - '0');
 		str++;
-		if (ft_isdigit(*str) && sign == 1
-			&& ((LONG_MAX - (*str - '0')) / 10 < ln || ln >= LONG_MAX))
-			return ((int)LONG_MAX);
-		else if (ft_isdigit(*str) && sign == -1
-			&& ((LONG_MIN + (*str - '0')) / 10 > -ln || ln < LONG_MIN))
-			return ((int)LONG_MIN);
 	}
-	return (sign * (int)ln);
+	return (sign * num);
 }
