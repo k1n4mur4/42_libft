@@ -5,21 +5,18 @@ RM			=	rm -rf
 AR			=	ar rcs
 
 SRCS_DIR	=	./srcs
-LIBFT_DIR	=	$(SRCS_DIR)/libft/srcs
-GNL_DIR		=	$(SRCS_DIR)/get_next_line/srcs
-PRINTF_DIR	=	./srcs/ft_printf/srcs
 
-CTYPE_DIR	=	$(LIBFT_DIR)/ctype
-LIST_DIR	=	$(LIBFT_DIR)/list
-MATH_DIR	=	$(LIBFT_DIR)/math
-MEMORY_DIR	=	$(LIBFT_DIR)/memory
-STDIO_DIR	=	$(LIBFT_DIR)/stdio
-STDLIB_DIR	=	$(LIBFT_DIR)/stdlib
-STRING_DIR	=	$(LIBFT_DIR)/string
+CTYPE_DIR	=	$(SRCS_DIR)/ctype
+LIST_DIR	=	$(SRCS_DIR)/list
+MATH_DIR	=	$(SRCS_DIR)/math
+MEMORY_DIR	=	$(SRCS_DIR)/memory
+STDIO_DIR	=	$(SRCS_DIR)/stdio
+STDLIB_DIR	=	$(SRCS_DIR)/stdlib
+STRING_DIR	=	$(SRCS_DIR)/string
 
 INCLUDES	=	./includes
 
-SRCS		=	$(wildcard $(LIBFT_DIR)/*.c $(CTYPE_DIR)/*.c $(LIST_DIR)/*.c \
+SRCS		=	$(wildcard $(SRCS_DIR)/*.c $(CTYPE_DIR)/*.c $(LIST_DIR)/*.c \
 					$(MATH_DIR)/*.c $(MEMORY_DIR)/*.c $(STDIO_DIR)/*.c $(MATH_DIR)/*.c \
 					$(STDLIB_DIR)/*.c $(GNL_DIR)/*.c $(PRINTF_DIR)/*.c $(STRING_DIR)/*.c)
 OBJS		=	$(SRCS:.c=.o)

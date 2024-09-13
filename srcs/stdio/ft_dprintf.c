@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_large_x.c                                :+:      :+:    :+:   */
+/*   ft_dprintf.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/21 03:04:48 by kinamura          #+#    #+#             */
-/*   Updated: 2024/09/03 23:50:06 by kinamura         ###   ########.fr       */
+/*   Created: 2024/09/14 00:28:10 by kinamura          #+#    #+#             */
+/*   Updated: 2024/09/14 00:30:45 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printf_large_x(t_args *args)
+int	ft_dprintf(int fd, const char *format, ...)
 {
-	int				ret;
-	unsigned int	num;
+	va_list	ap;
+	ssize_t	ret;
 
 	ret = 0;
-	num = va_arg(args->ap, unsigned long long);
-	ret += ft_putunbr_base(num, BASE_TOP_16);
+	va_start(ap, format);
+	ret = ft_vdprintf(fd, format, ap);
+	va_end(ap);
+	if (ret < 0)
+		return (-1);
 	return (ret);
 }

@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_x.c                                      :+:      :+:    :+:   */
+/*   ft_putc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/21 03:05:00 by kinamura          #+#    #+#             */
-/*   Updated: 2024/09/03 23:50:06 by kinamura         ###   ########.fr       */
+/*   Created: 2024/09/12 06:15:05 by kinamura          #+#    #+#             */
+/*   Updated: 2024/09/13 15:30:04 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printf_x(t_args *args)
+int	ft_putc(int c, int fd)
 {
-	int				ret;
-	unsigned int	num;
-
-	ret = 0;
-	num = va_arg(args->ap, unsigned long long);
-	ret += ft_putunbr_base(num, BASE_LOW_16);
-	return (ret);
+	return (write(fd, &c, 1));
 }

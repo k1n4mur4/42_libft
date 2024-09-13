@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_open_file.c                                     :+:      :+:    :+:   */
+/*   ft_ullsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/02 21:15:14 by kinamura          #+#    #+#             */
-/*   Updated: 2024/09/12 05:34:07 by kinamura         ###   ########.fr       */
+/*   Created: 2024/09/12 06:48:39 by kinamura          #+#    #+#             */
+/*   Updated: 2024/09/14 01:55:26 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int	ft_open_file(char *filename, int opt)
+size_t	ft_ullsize(unsigned long long unum, char *base)
 {
-	int	fd;
+	int		ret;
+	size_t	base_len;
 
-	fd = 0;
-	if (opt == 0)
-		fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0755);
-	else if (opt == 1)
-		fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0755);
-	else if (opt == 2)
-		fd = open(filename, O_RDONLY, 0755);
-	if (fd == -1)
-		perror("Error");
-	return (fd);
+	base_len = ft_strlen(base);
+	ret = 0;
+	if (unum == 0)
+		return (1);
+	while (unum != 0)
+	{
+		unum /= (unsigned long long)base_len;
+		ret++;
+	}
+	return (ret);
 }

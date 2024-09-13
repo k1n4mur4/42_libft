@@ -1,31 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_outchar.c                                       :+:      :+:    :+:   */
+/*   ft_vdprintf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/21 03:04:38 by kinamura          #+#    #+#             */
-/*   Updated: 2024/09/03 23:51:04 by kinamura         ###   ########.fr       */
+/*   Created: 2024/09/14 00:25:32 by kinamura          #+#    #+#             */
+/*   Updated: 2024/09/14 01:26:00 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_outchar(const char c)
+int	ft_vdprintf(int fd, const char *format, va_list ap)
 {
 	int	ret;
+	int	w_ret;
 
 	ret = 0;
-	ret += write(1, &c, 1);
+	while (*format)
+	{
+		if (*format == '%')
+		{
+			format++;
+			w_ret = ft_printf_switch(format, &ap, fd);
+			if (w_ret < 0)
+				return (-1);
+			ret += w_ret;
+		}
+		else
+		{
+			w_ret = ft_putc(*format, fd);
+			if (w_ret < 0)
+				return (-1);
+			ret += w_ret;
+		}
+		format++;
+	}
 	return (ret);
 }
-// #include <stdio.h>
-// int main(int ac, char **av)
-// {
-//     if (ac != 2)
-//         return (0);
-//     char c = av[1][0];
-//     printf("%d", ft_outchar(c));
-//     return (0);
-// }

@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_outstr.c                                        :+:      :+:    :+:   */
+/*   ft_fputu.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/21 03:04:29 by kinamura          #+#    #+#             */
-/*   Updated: 2024/09/03 23:50:06 by kinamura         ###   ########.fr       */
+/*   Created: 2024/09/12 06:50:03 by kinamura          #+#    #+#             */
+/*   Updated: 2024/09/14 01:16:24 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_outstr(const char *str)
+int	ft_fputu(unsigned int unum, int fd)
 {
-	size_t	index;
+	char	*str;
 	int		ret;
 
-	ret = 0;
-	index = 0;
+	str = ft_uitoa_base(unum, BASE_10);
 	if (!str)
-		return (ret);
-	while (str[index])
-	{
-		ret += ft_outchar(str[index]);
-		index++;
-	}
+		return (-1);
+	ret = ft_fputs(str, fd);
+	free(str);
 	return (ret);
 }
-// #include <stdio.h>
-// int main(int ac, char **av)
-// {
-//     if (ac != 2)
-//         return (0);
-//     printf("\nreturn:%d", ft_outstr(av[1]));
-//     return (0);
-// }

@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_u.c                                      :+:      :+:    :+:   */
+/*   ft_fputp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/21 03:04:57 by kinamura          #+#    #+#             */
-/*   Updated: 2024/09/03 23:50:06 by kinamura         ###   ########.fr       */
+/*   Created: 2024/09/12 18:56:43 by kinamura          #+#    #+#             */
+/*   Updated: 2024/09/14 01:19:44 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printf_u(t_args *args)
+int	ft_fputp(unsigned long long unum, int fd)
 {
-	int				ret;
-	unsigned int	num;
+	size_t	ret;
+	size_t	w_ret;
+	char	*str;
 
 	ret = 0;
-	num = va_arg(args->ap, unsigned int);
-	ret += ft_putunbr_base(num, BASE_10);
+	w_ret = ft_fputs("0x", fd);
+	if (w_ret < 0)
+		return (-1);
+	ret += w_ret;
+	str = ft_ulltoa_base(unum, BASE_LOW_16);
+	if (!str)
+		return (-1);
+	w_ret = ft_fputs(str, fd);
+	if (w_ret < 0)
+		return (-1);
+	ret += w_ret;
+	free(str);
 	return (ret);
 }

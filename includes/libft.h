@@ -6,7 +6,7 @@
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:45:34 by kinamura          #+#    #+#             */
-/*   Updated: 2024/09/12 05:33:17 by kinamura         ###   ########.fr       */
+/*   Updated: 2024/09/14 02:29:55 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <stdint.h>
 # include <fcntl.h>
+# include <stdio.h>
 
 typedef struct s_list
 {

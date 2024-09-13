@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_p.c                                      :+:      :+:    :+:   */
+/*   ft_uitoa.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/21 03:04:51 by kinamura          #+#    #+#             */
-/*   Updated: 2024/09/03 23:50:06 by kinamura         ###   ########.fr       */
+/*   Created: 2024/09/14 00:26:08 by kinamura          #+#    #+#             */
+/*   Updated: 2024/09/14 01:46:57 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printf_p(t_args *args)
+char	*ft_uitoa_base(unsigned int n, char *base)
 {
-	int					ret;
-	unsigned long long	num;
+	char	*ret;
+	size_t	size;
+	size_t	base_len;
 
-	ret = 0;
-	num = va_arg(args->ap, unsigned long long);
-	ret += ft_outstr("0x");
-	ret += ft_putunbr_base(num, BASE_LOW_16);
+	if (n == 0)
+		return (ft_strdup("0"));
+	base_len = ft_strlen(base);
+	size = ft_uisize(n, base_len);
+	ret = (char *)malloc(sizeof(char) * (size + 1));
+	if (!ret)
+		return (NULL);
+	ret[size] = '\0';
+	while (size > 0)
+	{
+		ret[--size] = base[n % base_len];
+		n /= base_len;
+	}
 	return (ret);
 }
