@@ -1,25 +1,22 @@
-NAME		=	lib.a
+NAME		=	test
+
 CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror
 RM			=	rm -rf
-AR			=	ar rcs
+
+LIB			=	lib.a
+
+LIB_DIR		=	./lib
+
+INCLUDES	=	-I ./includes -I $(LIB_DIR)/includes
 
 SRCS_DIR	=	./srcs
-
-CTYPE_DIR	=	$(SRCS_DIR)/ctype
-LIST_DIR	=	$(SRCS_DIR)/list
-MATH_DIR	=	$(SRCS_DIR)/math
-MEMORY_DIR	=	$(SRCS_DIR)/memory
-STDIO_DIR	=	$(SRCS_DIR)/stdio
-STDLIB_DIR	=	$(SRCS_DIR)/stdlib
-STRING_DIR	=	$(SRCS_DIR)/string
-
-INCLUDES	=	./includes
-
-SRCS		=	$(wildcard $(SRCS_DIR)/*.c $(CTYPE_DIR)/*.c $(LIST_DIR)/*.c \
-					$(MATH_DIR)/*.c $(MEMORY_DIR)/*.c $(STDIO_DIR)/*.c $(MATH_DIR)/*.c \
-					$(STDLIB_DIR)/*.c $(GNL_DIR)/*.c $(PRINTF_DIR)/*.c $(STRING_DIR)/*.c)
+SRCS		=	$(wildcard $(SRCS_DIR)/*.c)
 OBJS		=	$(SRCS:.c=.o)
+
+BONUS		=	./srcs/test_bonus
+BONUS_SRCS	=	$(wildcard $(SRCS_DIR)/*.c)
+BONUS_OBJS	=	$(BONUS_SRCS:.c=.o)
 
 RESET		=	\033[0m
 BOLD		=	\033[1m
@@ -34,24 +31,33 @@ MAKEFLAGS	+=	--no-print-directory
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	@echo "$(BOLD)$(LIGHT_BLUE)Linking objects...$(RESET)"
-	@$(AR) $@ $^
-	@echo "$(BOLD)$(LIGHT_BLUE)Create $(NAME)$(RESET)"
-
 .c.o:
-	@$(CC) $(CFLAGS) -I $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(NAME): $(OBJS)
+	@$(MAKE) -C $(LIB_DIR)
+	@echo "$(BOLD)$(LIGHT_BLUE)Compile $(NAME)...$(RESET)"
+	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(LIB_DIR)/$(LIB) -o $(NAME)
+	@echo "$(BOLD)$(LIGHT_BLUE)Compile $(NAME) Complete!$(RESET)"
 
 clean:
-	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning objects...$(RESET)"
-	@$(RM) $(OBJS)
-	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning Complete!$(RESET)"
+	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning $(NAME)...$(RESET)"
+	@$(MAKE) clean -C $(LIB_DIR)
+	@$(RM) $(OBJS) $(BONUS_OBJS)
+	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning $(NAME) Complete!$(RESET)"
 
 fclean: clean
-	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning $(NAME)...$(RESET)"
-	@$(RM) $(NAME)
+	@$(MAKE) fclean -C $(LIB_DIR)
+	@echo "$(BOLD)$(LIGHT_BLUE)ALL Cleaning $(NAME)...$(RESET)"
+	@$(RM) $(NAME) $(BONUS)
 	@echo "$(BOLD)$(LIGHT_BLUE)ALL Cleaning $(NAME) Complete!$(RESET)"
+
+bonus: fclean $(BONUS_OBJS) $(OBJS)
+	@$(MAKE) -C $(LIB_DIR)
+	@echo "$(BOLD)$(LIGHT_BLUE)Compile $(BONUS)...$(RESET)"
+	@$(CC) $(CFLAGS) $(INCLUDES) $(BONUS_OBJS) $(LIB_DIR)/$(LIB) -o $(BONUS)
+	@echo "$(BOLD)$(LIGHT_BLUE)Compile $(BONUS) Complete!$(RESET)"
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
