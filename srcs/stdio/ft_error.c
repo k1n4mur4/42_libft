@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_open_file.c                                     :+:      :+:    :+:   */
+/*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/02 21:15:14 by kinamura          #+#    #+#             */
-/*   Updated: 2024/09/12 05:34:33 by kinamura         ###   ########.fr       */
+/*   Created: 2024/08/31 20:29:24 by kinamura          #+#    #+#             */
+/*   Updated: 2024/09/18 23:38:25 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int	ft_open_file(char *filename, int opt)
+void	ft_error(const char *format, ...)
 {
-	int	fd;
+	va_list ap;
 
-	fd = 0;
-	if (opt == 0)
-		fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0755);
-	else if (opt == 1)
-		fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0755);
-	else if (opt == 2)
-		fd = open(filename, O_RDONLY, 0755);
-	if (fd == -1)
-		perror("Error");
-	return (fd);
+	va_start(ap, format);
+	ft_vdprintf(STDERR_FILENO, format, ap);
+	va_end(ap);
+	exit(EXIT_FAILURE);
 }
