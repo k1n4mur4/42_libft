@@ -6,7 +6,7 @@
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 16:47:52 by kinamura          #+#    #+#             */
-/*   Updated: 2024/10/17 21:21:09 by kinamura         ###   ########.fr       */
+/*   Updated: 2024/10/17 21:52:29 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,15 +111,15 @@ char	*ft_read_file(int fd, char *str)
 	return (str);
 }
 
-int	*get_next_line(int fd, char *line)
+size_t	get_next_line(int fd, char **line)
 {
 	static char	*str;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
+		return (0);
 	str = ft_read_file(fd, str);
 	if (!str)
-		return (NULL);
+		return (0);
 	*line = ft_get_line(str);
 	str = ft_next_str(str);
 	return (ft_strlen(*line));
