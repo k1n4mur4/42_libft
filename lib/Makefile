@@ -13,12 +13,13 @@ MEMORY_DIR	=	$(SRCS_DIR)/memory
 STDIO_DIR	=	$(SRCS_DIR)/stdio
 STDLIB_DIR	=	$(SRCS_DIR)/stdlib
 STRING_DIR	=	$(SRCS_DIR)/string
+GNL_DIR		=	$(SRCS_DIR)/get_next_line
 
 INCLUDES	=	./includes
 
-SRCS		=	$(wildcard $(SRCS_DIR)/*.c $(CTYPE_DIR)/*.c $(LIST_DIR)/*.c \
-					$(MATH_DIR)/*.c $(MEMORY_DIR)/*.c $(STDIO_DIR)/*.c $(MATH_DIR)/*.c \
-					$(STDLIB_DIR)/*.c $(GNL_DIR)/*.c $(PRINTF_DIR)/*.c $(STRING_DIR)/*.c)
+SRCS		=	$(wildcard $(SRCS_DIR)/*.c $(CTYPE_DIR)/*.c $(LIST_DIR)/*.c $(MATH_DIR)/*.c \
+					$(MEMORY_DIR)/*.c $(STDIO_DIR)/*.c $(MATH_DIR)/*.c $(STDLIB_DIR)/*.c \
+					$(GNL_DIR)/*.c $(PRINTF_DIR)/*.c $(STRING_DIR)/*.c $(GNL_DIR)/*.c)
 OBJS		=	$(SRCS:.c=.o)
 
 RESET		=	\033[0m
