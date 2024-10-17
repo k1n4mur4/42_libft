@@ -3,6 +3,6 @@
 
 int main(void)
 {
-    ft_printf("%d %d %d", 100, 200, 400);
+    ft_printf("%d", ft_strtol("0x16", NULL, 16));
     return (0);
 }
