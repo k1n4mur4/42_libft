@@ -6,7 +6,7 @@
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 12:10:51 by kinamura          #+#    #+#             */
-/*   Updated: 2024/09/12 05:24:55 by kinamura         ###   ########.fr       */
+/*   Updated: 2024/10/26 06:37:18 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,17 @@ void	ft__base_check(char **ptr, int *base)
 		else
 			*base = 10;
 	}
-	else if (*base == 16 && **ptr == '0' \
-			&& (*(*ptr + 1) == 'x' || *(*ptr + 1) == 'X'))
+	else if (*base == 16 && **ptr == '0'
+		&& (*(*ptr + 1) == 'x' || *(*ptr + 1) == 'X'))
 		*ptr += 2;
 }
 
 long	ft_strtol(const char *str, char **endptr, int base)
 {
-	char		*p;
-	int			sign;
-	long		ret;
-	int			digit;
+	char	*p;
+	int		sign;
+	long	ret;
+	int		digit;
 
 	p = (char *)str;
 	sign = ft__space_sign(&p);

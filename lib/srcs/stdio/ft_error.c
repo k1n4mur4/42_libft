@@ -14,7 +14,7 @@
 
 void	ft_error(const char *format, ...)
 {
-	va_list ap;
+	va_list	ap;
 
 	va_start(ap, format);
 	ft_vdprintf(STDERR_FILENO, format, ap);
