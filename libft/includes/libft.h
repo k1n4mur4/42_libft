@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:45:34 by kinamura          #+#    #+#             */
-/*   Updated: 2024/11/01 03:17:33 by ubuntu           ###   ########.fr       */
+/*   Updated: 2024/11/01 03:19:40 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ t_list				*ft_lstnew(void *content);
 int					ft_lstsize(t_list *lst);
 // math
 int					ft_abs(int i);
+int					ft_max(int a, int b);
+int					ft_min(int a, int b);
 // memory
 void				ft_bzero(void *s, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
@@ -76,8 +78,6 @@ long				ft_atol(const char *str);
 void				*ft_calloc(size_t count, size_t size);
 int					ft_hextoi(int c);
 char				*ft_itoa(int n);
-int					ft_max(int a, int b);
-int					ft_min(int a, int b);
 long				ft_strtol(const char *str, char **endptr, int base);
 void				ft_swap(int *a, int *b);
 // string
