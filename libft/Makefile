@@ -36,7 +36,7 @@ MAKEFLAGS	+=	--no-print-directory
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@echo "$(BOLD)$(LIGHT_BLUE)Linking objects...$(RESET)"
+	@echo "$(BOLD)$(LIGHT_BLUE)Linked objects$(RESET)"
 	@$(AR) $@ $^
 	@echo "$(BOLD)$(LIGHT_BLUE)Create $(NAME)$(RESET)"
 
@@ -48,9 +48,9 @@ clean:
 	@$(RM) $(OBJS)
 	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning Complete!$(RESET)"
 
-fclean: clean
-	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning $(NAME)...$(RESET)"
-	@$(RM) $(NAME)
+fclean:
+	@echo "$(BOLD)$(LIGHT_BLUE)ALL Cleaning $(NAME)...$(RESET)"
+	@$(RM) $(OBJS) $(NAME)
 	@echo "$(BOLD)$(LIGHT_BLUE)ALL Cleaning $(NAME) Complete!$(RESET)"
 
 re: fclean all

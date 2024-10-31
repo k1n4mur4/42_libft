@@ -1,4 +1,5 @@
 NAME		=	test
+BONUS		=	bonus
 
 CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror
@@ -14,8 +15,8 @@ SRCS_DIR	=	./srcs
 SRCS		=	$(wildcard $(SRCS_DIR)/*.c)
 OBJS		=	$(SRCS:.c=.o)
 
-BONUS		=	./srcs/test_bonus
-BONUS_SRCS	=	$(wildcard $(SRCS_DIR)/*.c)
+BONUS_DIR	=	./srcs/test_bonus
+BONUS_SRCS	=	$(wildcard $(SRCS_DIR)/*.c $(BONUS_DIR)/*.c)
 BONUS_OBJS	=	$(BONUS_SRCS:.c=.o)
 
 RESET		=	\033[0m
@@ -31,14 +32,14 @@ MAKEFLAGS	+=	--no-print-directory
 
 all: $(NAME)
 
-.c.o:
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
 $(NAME): $(OBJS)
-	@$(MAKE) -C $(LIBFT_DIR)
 	@echo "$(BOLD)$(LIGHT_BLUE)Compile $(NAME)...$(RESET)"
+	@$(MAKE) -C $(LIBFT_DIR)
 	@$(CC) $(CFLAG) $(INCLUDES) $(OBJS) $(LIBFT_DIR)/$(LIBFT_A) -o $(NAME)
 	@echo "$(BOLD)$(LIGHT_BLUE)Compile $(NAME) Complete!$(RESET)"
+
+.c.o:
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean: $(LIBFT)
 	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning $(NAME)...$(RESET)"
@@ -46,16 +47,16 @@ clean: $(LIBFT)
 	@$(RM) $(OBJS) $(BONUS_OBJS)
 	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning $(NAME) Complete!$(RESET)"
 
-fclean: clean
-	@$(MAKE) fclean -C $(LIBFT_DIR)
+fclean:
 	@echo "$(BOLD)$(LIGHT_BLUE)ALL Cleaning $(NAME)...$(RESET)"
-	@$(RM) $(NAME) $(BONUS)
+	@$(MAKE) fclean -C $(LIBFT_DIR)
+	@$(RM) $(OBJS) $(BONUS_OBJS) $(NAME) $(BONUS)
 	@echo "$(BOLD)$(LIGHT_BLUE)ALL Cleaning $(NAME) Complete!$(RESET)"
 
 bonus: fclean $(BONUS_OBJS) $(OBJS)
-	@$(MAKE) -C $(LIBFT_DIR)
 	@echo "$(BOLD)$(LIGHT_BLUE)Compile $(BONUS)...$(RESET)"
-	@$(CC) $(CFLAG) $(INCLUDES) $(BONUS_OBJS) $(LIBFT_DIR)/(LIBFT_A) -o $(BONUS)
+	@$(MAKE) -C $(LIBFT_DIR)
+	@$(CC) $(CFLAG) $(INCLUDES) $(BONUS_OBJS) $(LIBFT_DIR)/$(LIBFT_A) -o $(BONUS)
 	@echo "$(BOLD)$(LIGHT_BLUE)Compile $(BONUS) Complete!$(RESET)"
 
 re: fclean all
