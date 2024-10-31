@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:45:34 by kinamura          #+#    #+#             */
-/*   Updated: 2024/11/01 03:06:27 by ubuntu           ###   ########.fr       */
+/*   Updated: 2024/11/01 03:17:33 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ int					ft_isprint(int c);
 int					ft_isspace(int c);
 int					ft_toupper(int c);
 int					ft_tolower(int c);
+// free
+void				ft_free_array2(void **array);
+void				ft_free_array3(void ***array);
 // list
 void				ft_lstadd_back(t_list **lst, t_list *new);
 void				ft_lstadd_front(t_list **lst, t_list *new);
@@ -50,6 +53,8 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
 t_list				*ft_lstnew(void *content);
 int					ft_lstsize(t_list *lst);
+// math
+int					ft_abs(int i);
 // memory
 void				ft_bzero(void *s, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
@@ -66,7 +71,6 @@ void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
 int					ft_fopen(char *filename, const char *mode);
 // stdlib
-int					ft_abs(int i);
 int					ft_atoi(const char *str);
 long				ft_atol(const char *str);
 void				*ft_calloc(size_t count, size_t size);

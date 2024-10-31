@@ -2,15 +2,7 @@
 
 int	main(void)
 {
-	char *line;
-	int fd;
-
-	fd = ft_fopen("test.txt", "r");
-	while (get_next_line(1, &line))
-	{
-		ft_printf("%s", line);
-		free(line);
-	}
-	close(fd);
+	char *a = "filename";
+	ft_error("Error: %s\n", a);
 	return (0);
 }
