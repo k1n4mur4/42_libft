@@ -1,4 +1,4 @@
-NAME		=	lib.a
+NAME		=	libft.a
 CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror
 RM			=	rm -rf

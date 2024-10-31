@@ -22,7 +22,6 @@
 # define BASE_LOW_16 "0123456789abcdef"
 # define BASE_TOP_16 "0123456789ABCDEF"
 
-void	ft_error(const char *format, ...);
 int		ft_fputi(int num, int fd);
 int		ft_fputp(unsigned long long unum, int fd);
 int		ft_fputs(const char *s, int fd);

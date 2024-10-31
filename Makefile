@@ -4,11 +4,11 @@ CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror
 RM			=	rm -rf
 
-LIB			=	lib.a
+LIBFT		=	libft
+LIBFT_A		=	$(LIBFT).a
+LIBFT_DIR	=	./$(LIBFT)
 
-LIB_DIR		=	./lib
-
-INCLUDES	=	-I ./includes -I $(LIB_DIR)/includes
+INCLUDES	=	-I ./includes -I $(LIBFT_DIR)/includes
 
 SRCS_DIR	=	./srcs
 SRCS		=	$(wildcard $(SRCS_DIR)/*.c)
@@ -35,27 +35,27 @@ all: $(NAME)
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(NAME): $(OBJS)
-	@$(MAKE) -C $(LIB_DIR)
+	@$(MAKE) -C $(LIBFT_DIR)
 	@echo "$(BOLD)$(LIGHT_BLUE)Compile $(NAME)...$(RESET)"
-	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(LIB_DIR)/$(LIB) -o $(NAME)
+	@$(CC) $(CFLAG) $(INCLUDES) $(OBJS) $(LIBFT_DIR)/$(LIBFT_A) -o $(NAME)
 	@echo "$(BOLD)$(LIGHT_BLUE)Compile $(NAME) Complete!$(RESET)"
 
-clean:
+clean: $(LIBFT)
 	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning $(NAME)...$(RESET)"
-	@$(MAKE) clean -C $(LIB_DIR)
+	@$(MAKE) clean -C $(LIBFT_DIR)
 	@$(RM) $(OBJS) $(BONUS_OBJS)
 	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning $(NAME) Complete!$(RESET)"
 
 fclean: clean
-	@$(MAKE) fclean -C $(LIB_DIR)
+	@$(MAKE) fclean -C $(LIBFT_DIR)
 	@echo "$(BOLD)$(LIGHT_BLUE)ALL Cleaning $(NAME)...$(RESET)"
 	@$(RM) $(NAME) $(BONUS)
 	@echo "$(BOLD)$(LIGHT_BLUE)ALL Cleaning $(NAME) Complete!$(RESET)"
 
 bonus: fclean $(BONUS_OBJS) $(OBJS)
-	@$(MAKE) -C $(LIB_DIR)
+	@$(MAKE) -C $(LIBFT_DIR)
 	@echo "$(BOLD)$(LIGHT_BLUE)Compile $(BONUS)...$(RESET)"
-	@$(CC) $(CFLAGS) $(INCLUDES) $(BONUS_OBJS) $(LIB_DIR)/$(LIB) -o $(BONUS)
+	@$(CC) $(CFLAG) $(INCLUDES) $(BONUS_OBJS) $(LIBFT_DIR)/(LIBFT_A) -o $(BONUS)
 	@echo "$(BOLD)$(LIGHT_BLUE)Compile $(BONUS) Complete!$(RESET)"
 
 re: fclean all
