@@ -6,12 +6,11 @@
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 21:15:14 by kinamura          #+#    #+#             */
-/*   Updated: 2024/11/08 21:10:05 by kinamura         ###   ########.fr       */
+/*   Updated: 2024/11/08 21:51:56 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include "libft.h"
+#include "utils.h"
 
 int	ft_fopen(char *filename, const char *mode)
 {

@@ -16,20 +16,19 @@ STDIO_DIR	=	$(SRCS_DIR)/stdio
 STDLIB_DIR	=	$(SRCS_DIR)/stdlib
 STRING_DIR	=	$(SRCS_DIR)/string
 
-INCLUDES	=	-I ./includes
+CMN_SRCS	=	$(wildcard $(SRCS_DIR)/*.c $(CTYPE_DIR)/*.c $(FREE_DIR)/*.c $(LIST_DIR)/*.c $(MATH_DIR)/*.c \
+					$(MEMORY_DIR)/*.c $(STDIO_DIR)/*.c $(MATH_DIR)/*.c $(STDLIB_DIR)/*.c \
+					$(GNL_DIR)/*.c $(STRING_DIR)/*.c $(GNL_DIR)/*.c)
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S), Darwin)
-	MAC_DIR		=	./mac
-	MSRCS_DIR	=	$(MAC_DIR)/srcs
-	PRINTF_DIR	=	$(MSRCS_DIR)/ft_printf
-	INCLUDES	+=	-I $(MAC_DIR)/includes
+	OS_DIR		=	./mac
 else
-	LINUX_DIR	=	./linux
-	LSRCS_DIR	=	$(LINUX_DIR)/srcs
-	PRINTF_DIR	=	$(LSRCS_DIR)/ft_printf
-	INCLUDES	+=	-I $(LINUX_DIR)/includes
+	OS_DIR		=	./linux
 endif
+
+OS_SRCS_DIR	=	$(OS_DIR)/srcs
+PRINTF_DIR	=	$(OS_SRCS_DIR)/ft_printf
 
 PRINTF_SRCS	=	$(PRINTF_DIR)/ft_dprintf.c \
 				$(PRINTF_DIR)/ft_fputi.c \
@@ -42,14 +41,19 @@ PRINTF_SRCS	=	$(PRINTF_DIR)/ft_dprintf.c \
 				$(PRINTF_DIR)/ft_fputu.c \
 				$(PRINTF_DIR)/ft_printf.c \
 				$(PRINTF_DIR)/ft_ulltoa_base.c \
-				$(PRINTF_DIR)/ft_vprintf.c \
+				$(PRINTF_DIR)/ft_vprintf.c
 
-COMMON_SRCS	=	$(wildcard $(SRCS_DIR)/*.c $(CTYPE_DIR)/*.c $(FREE_DIR)/*.c $(LIST_DIR)/*.c $(MATH_DIR)/*.c \
-					$(MEMORY_DIR)/*.c $(STDIO_DIR)/*.c $(MATH_DIR)/*.c $(STDLIB_DIR)/*.c \
-					$(GNL_DIR)/*.c $(STRING_DIR)/*.c $(GNL_DIR)/*.c)
+OS_STDIO	=	$(OS_SRCS_DIR)/stdio
+OS_STD_SRCS	=	$(OS_STDIO)/ft_error.c \
+				$(OS_STDIO)/ft_exit_message.c \
+				$(OS_STDIO)/ft_fopen.c
 
-SRCS		=	$(COMMON_SRCS) $(PRINTF_SRCS)
+OS_SRCS		=	$(PRINTF_SRCS) $(OS_STD_SRCS)
+
+SRCS		=	$(CMN_SRCS) $(OS_SRCS)
 OBJS		=	$(SRCS:.c=.o)
+
+INCLUDES	=	-I ./includes -I $(OS_DIR)/includes
 
 RESET		=	\033[0m
 BOLD		=	\033[1m
@@ -65,7 +69,6 @@ MAKEFLAGS	+=	--no-print-directory
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@echo "$(BOLD)$(LIGHT_BLUE)Linked objects$(RESET)"
 	@$(AR) $@ $^
 	@echo "$(BOLD)$(LIGHT_BLUE)Create $(NAME)$(RESET)"
 

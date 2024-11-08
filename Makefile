@@ -9,16 +9,6 @@ LIBFT		=	libft
 LIBFT_A		=	$(LIBFT).a
 LIBFT_DIR	=	./$(LIBFT)
 
-INCLUDES	=	-I ./includes -I $(LIBFT_DIR)/includes
-
-ifeq ($(OS), Darwin)
-	MAC_DIR		=	$(LIBFT_DIR)/mac
-	INCLUDES	+=	-I $(MAC_DIR)/includes
-else
-	LINUX_DIR	=	$(LIBFT_DIR)/linux
-	INCLUDES	+=	-I $(LINUX_DIR)/includes
-endif
-
 SRCS_DIR	=	./srcs
 SRCS		=	$(wildcard $(SRCS_DIR)/*.c)
 OBJS		=	$(SRCS:.c=.o)
@@ -26,6 +16,15 @@ OBJS		=	$(SRCS:.c=.o)
 BONUS_DIR	=	./srcs/test_bonus
 BONUS_SRCS	=	$(wildcard $(SRCS_DIR)/*.c $(BONUS_DIR)/*.c)
 BONUS_OBJS	=	$(BONUS_SRCS:.c=.o)
+
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S), Darwin)
+	OS_DIR		=	$(LIBFT_DIR)/mac
+else
+	OS_DIR		=	$(LIBFT_DIR)/linux
+endif
+
+INCLUDES	=	-I ./includes -I $(LIBFT_DIR)/includes -I $(OS_DIR)/includes
 
 RESET		=	\033[0m
 BOLD		=	\033[1m
@@ -42,14 +41,16 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "$(BOLD)$(LIGHT_BLUE)Compile $(NAME)...$(RESET)"
+	@echo "$(BOLD)$(LIGHT_BLUE)Create $(LIBFT)...$(RESET)"
 	@$(MAKE) -C $(LIBFT_DIR)
+	@echo "$(BOLD)$(LIGHT_BLUE)Compile now...$(RESET)"
 	@$(CC) $(CFLAG) $(INCLUDES) $(OBJS) $(LIBFT_DIR)/$(LIBFT_A) -o $(NAME)
 	@echo "$(BOLD)$(LIGHT_BLUE)Compile $(NAME) Complete!$(RESET)"
 
 .c.o:
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-clean: $(LIBFT)
+clean:
 	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning $(NAME)...$(RESET)"
 	@$(MAKE) clean -C $(LIBFT_DIR)
 	@$(RM) $(OBJS) $(BONUS_OBJS)
