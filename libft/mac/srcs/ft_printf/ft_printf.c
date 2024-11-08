@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_uisize.c                                        :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 00:26:14 by kinamura          #+#    #+#             */
-/*   Updated: 2024/11/08 18:38:23 by kinamura         ###   ########.fr       */
+/*   Created: 2024/09/13 15:29:33 by kinamura          #+#    #+#             */
+/*   Updated: 2024/09/13 15:29:34 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-size_t	ft_uisize(unsigned int n, int base)
+int	ft_printf(const char *format, ...)
 {
-	size_t	size;
+	va_list	ap;
+	ssize_t	ret;
 
-	if (n == 0)
-		return (1);
-	size = 0;
-	while (n != 0)
-	{
-		size++;
-		n /= (unsigned int)base;
-	}
-	return (size);
+	ret = 0;
+	va_start(ap, format);
+	ret = ft_vprintf(format, ap);
+	va_end(ap);
+	if (ret < 0)
+		return (-1);
+	return (ret);
 }

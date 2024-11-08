@@ -1,41 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fputx.c                                         :+:      :+:    :+:   */
+/*   ft_vdprintf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/12 16:19:21 by kinamura          #+#    #+#             */
-/*   Updated: 2024/09/14 01:29:30 by kinamura         ###   ########.fr       */
+/*   Created: 2024/09/14 00:25:32 by kinamura          #+#    #+#             */
+/*   Updated: 2024/11/08 18:42:48 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_toupperstr(char *str)
+int	ft_vdprintf(int fd, const char *format, va_list ap)
 {
-	size_t	index;
+	int	ret;
+	int	wret;
 
-	index = 0;
-	while (str[index])
+	ret = 0;
+	while (*format)
 	{
-		str[index] = ft_toupper(str[index]);
-		index++;
+		if (*format == '%')
+		{
+			format++;
+			wret = ft_printf_switch(format, ap, fd);
+			if (wret < 0)
+				return (-1);
+			ret += wret;
+		}
+		else
+		{
+			wret = ft_fputc(*format, fd);
+			if (wret < 0)
+				return (-1);
+			ret += wret;
+		}
+		format++;
 	}
-	return (str);
-}
-
-int	ft_fputx(unsigned int unum, int fd, int c)
-{
-	char	*str;
-	int		ret;
-
-	str = ft_uitoa_base(unum, BASE_LOW_16);
-	if (!str)
-		return (-1);
-	if (c == 'X')
-		ft_toupperstr(str);
-	ret = ft_fputs(str, fd);
-	free(str);
 	return (ret);
 }

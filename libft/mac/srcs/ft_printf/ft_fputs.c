@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ulltoa_base.c                                   :+:      :+:    :+:   */
+/*   ft_fputs.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/12 06:47:56 by kinamura          #+#    #+#             */
-/*   Updated: 2024/09/14 01:54:23 by kinamura         ###   ########.fr       */
+/*   Created: 2024/09/12 06:15:30 by kinamura          #+#    #+#             */
+/*   Updated: 2024/09/14 02:06:53 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_ulltoa_base(unsigned long long unum, char *base)
+int	ft_fputs(const char *s, int fd)
 {
-	char				*ret;
-	ssize_t				size;
-	unsigned long long	base_len;
+	int	ret;
 
-	base_len = (unsigned long long)ft_strlen(base);
-	size = ft_ullsize(unum, base);
-	ret = (char *)malloc(sizeof(char) * (size + 1));
-	if (!ret)
-		return (NULL);
-	ret[size] = '\0';
-	while (size > 0)
-	{
-		ret[--size] = base[unum % base_len];
-		unum /= base_len;
-	}
+	if (!s)
+		ret = write(fd, "(null)", 6);
+	else
+		ret = write(fd, s, ft_strlen(s));
+	if (ret < 0)
+		return (-1);
 	return (ret);
 }

@@ -1,35 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fputp.c                                         :+:      :+:    :+:   */
+/*   ft_fputi.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/12 18:56:43 by kinamura          #+#    #+#             */
-/*   Updated: 2024/09/14 01:19:44 by kinamura         ###   ########.fr       */
+/*   Created: 2024/09/12 16:14:03 by kinamura          #+#    #+#             */
+/*   Updated: 2024/11/08 18:23:19 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_fputp(unsigned long long unum, int fd)
+int	ft_fputi(int num, int fd)
 {
-	int		ret;
-	int		w_ret;
-	char	*str;
+	long long	lnum;
+	int			ret;
+	int			wret;
 
 	ret = 0;
-	w_ret = ft_fputs("0x", fd);
-	if (w_ret < 0)
+	lnum = (long long)num;
+	if (num < 0)
+	{
+		wret = ft_fputc('-', fd);
+		if (wret < 0)
+			return (-1);
+		lnum *= -1;
+		ret += wret;
+	}
+	wret = ft_uitoa_base((unsigned int)lnum, BASE_10, fd);
+	if (wret < 0)
 		return (-1);
-	ret += w_ret;
-	str = ft_ulltoa_base(unum, BASE_LOW_16);
-	if (!str)
-		return (-1);
-	w_ret = ft_fputs(str, fd);
-	if (w_ret < 0)
-		return (-1);
-	ret += w_ret;
-	free(str);
+	ret += wret;
 	return (ret);
 }

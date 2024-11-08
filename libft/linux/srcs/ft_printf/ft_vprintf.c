@@ -6,7 +6,7 @@
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 06:16:22 by kinamura          #+#    #+#             */
-/*   Updated: 2024/09/14 01:21:22 by kinamura         ###   ########.fr       */
+/*   Updated: 2024/11/08 18:43:24 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	ft_printf_switch(const char *format, va_list ap, int fd)
 {
 	if (*format == '%')
-		return (ft_putc('%', fd));
+		return (ft_fputc('%', fd));
 	else if (*format == 'c')
-		return (ft_putc(va_arg(ap, int), fd));
+		return (ft_fputc(va_arg(ap, int), fd));
 	else if (*format == 's')
 		return (ft_fputs(va_arg(ap, char *), fd));
 	else if (*format == 'u')
@@ -50,7 +50,7 @@ int	ft_vprintf(const char *format, va_list ap)
 		}
 		else
 		{
-			w_ret = ft_putc(*format, STDOUT_FILENO);
+			w_ret = ft_fputc(*format, STDOUT_FILENO);
 			if (w_ret < 0)
 				return (-1);
 			ret += w_ret;

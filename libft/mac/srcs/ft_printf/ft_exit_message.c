@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_uisize.c                                        :+:      :+:    :+:   */
+/*   ft_exit_message.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 00:26:14 by kinamura          #+#    #+#             */
-/*   Updated: 2024/11/08 18:38:23 by kinamura         ###   ########.fr       */
+/*   Created: 2024/11/01 03:03:48 by ubuntu            #+#    #+#             */
+/*   Updated: 2024/11/08 21:08:20 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-size_t	ft_uisize(unsigned int n, int base)
+void	ft_exit_message(int status, const char *format, ...)
 {
-	size_t	size;
+	va_list	ap;
 
-	if (n == 0)
-		return (1);
-	size = 0;
-	while (n != 0)
-	{
-		size++;
-		n /= (unsigned int)base;
-	}
-	return (size);
+	va_start(ap, format);
+	ft_vdprintf(STDERR_FILENO, format, ap);
+	va_end(ap);
+	exit(status);
 }

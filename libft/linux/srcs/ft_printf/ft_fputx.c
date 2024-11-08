@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fputu.c                                         :+:      :+:    :+:   */
+/*   ft_fputx.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/12 06:50:03 by kinamura          #+#    #+#             */
-/*   Updated: 2024/09/14 01:16:24 by kinamura         ###   ########.fr       */
+/*   Created: 2024/09/12 16:19:21 by kinamura          #+#    #+#             */
+/*   Updated: 2024/11/08 18:32:56 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_fputu(unsigned int unum, int fd)
+int	ft_fputx(unsigned int unum, int fd, int c)
 {
-	char	*str;
-	int		ret;
+	int	ret;
+	int	wret;
 
-	str = ft_uitoa_base(unum, BASE_10);
-	if (!str)
+	ret = 0;
+	if (c == 'X')
+		wret = ft_uitoa_base(unum, BASE_LOW_16, fd);
+	else if (c == 'x')
+		wret = ft_uitoa_base(unum, BASE_TOP_16, fd);
+	else
 		return (-1);
-	ret = ft_fputs(str, fd);
-	free(str);
+	if (wret < 0)
+		return (-1);
+	ret += wret;
 	return (ret);
 }

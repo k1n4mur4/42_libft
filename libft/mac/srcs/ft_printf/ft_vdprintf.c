@@ -1,41 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_base.c                                     :+:      :+:    :+:   */
+/*   ft_vdprintf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 00:26:25 by kinamura          #+#    #+#             */
-/*   Updated: 2024/09/14 01:51:54 by kinamura         ###   ########.fr       */
+/*   Created: 2024/09/14 00:25:32 by kinamura          #+#    #+#             */
+/*   Updated: 2024/11/08 18:48:13 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_itoa_base(int n, char *base)
+int	ft_vdprintf(int fd, const char *format, va_list ap)
 {
-	long long	ln;
-	char		*ret;
-	size_t		size;
-	size_t		base_len;
+	int	ret;
+	int	wret;
 
-	ln = n;
-	base_len = ft_strlen(base);
-	size = ft_isize(n, base_len);
-	ret = (char *)malloc(sizeof(char) * (size + 1));
-	if (!ret)
-		return (NULL);
-	ret[size--] = '\0';
-	if (ln < 0)
+	ret = 0;
+	while (*format)
 	{
-		ln = -ln;
-		ret[0] = '-';
+		if (*format == '%')
+		{
+			format++;
+			wret = ft_printf_switch(format, &ap, fd);
+			if (wret < 0)
+				return (-1);
+			ret += wret;
+		}
+		else
+		{
+			wret = ft_fputc(*format, fd);
+			if (wret < 0)
+				return (-1);
+			ret += wret;
+		}
+		format++;
 	}
-	while (ln >= (long long)base_len)
-	{
-		ret[size--] = base[ln % base_len];
-		ln /= base_len;
-	}
-	ret[size] = base[ln % base_len];
 	return (ret);
 }

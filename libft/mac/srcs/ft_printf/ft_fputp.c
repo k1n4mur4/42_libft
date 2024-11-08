@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fputi.c                                         :+:      :+:    :+:   */
+/*   ft_fputp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/12 16:14:03 by kinamura          #+#    #+#             */
-/*   Updated: 2024/09/14 01:18:15 by kinamura         ###   ########.fr       */
+/*   Created: 2024/09/12 18:56:43 by kinamura          #+#    #+#             */
+/*   Updated: 2024/11/08 18:41:00 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_fputi(int num, int fd)
+int	ft_fputp(unsigned long long unum, int fd)
 {
-	char	*str;
 	int		ret;
+	int		wret;
 
-	str = ft_itoa_base(num, BASE_10);
-	if (!str)
+	ret = 0;
+	wret = ft_fputs("0x", fd);
+	if (wret < 0)
 		return (-1);
-	ret = ft_fputs(str, fd);
-	free(str);
+	ret += wret;
+	wret = ft_ulltoa_base(unum, BASE_LOW_16, fd);
+	if (wret < 0)
+		return (-1);
+	ret += wret;
 	return (ret);
 }

@@ -11,6 +11,14 @@ LIBFT_DIR	=	./$(LIBFT)
 
 INCLUDES	=	-I ./includes -I $(LIBFT_DIR)/includes
 
+ifeq ($(OS), Darwin)
+	MAC_DIR		=	$(LIBFT_DIR)/mac
+	INCLUDES	+=	-I $(MAC_DIR)/includes
+else
+	LINUX_DIR	=	$(LIBFT_DIR)/linux
+	INCLUDES	+=	-I $(LINUX_DIR)/includes
+endif
+
 SRCS_DIR	=	./srcs
 SRCS		=	$(wildcard $(SRCS_DIR)/*.c)
 OBJS		=	$(SRCS:.c=.o)

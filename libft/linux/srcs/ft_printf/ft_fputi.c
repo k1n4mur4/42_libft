@@ -1,41 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vdprintf.c                                      :+:      :+:    :+:   */
+/*   ft_fputi.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 00:25:32 by kinamura          #+#    #+#             */
-/*   Updated: 2024/09/14 01:26:00 by kinamura         ###   ########.fr       */
+/*   Created: 2024/09/12 16:14:03 by kinamura          #+#    #+#             */
+/*   Updated: 2024/11/08 18:23:19 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_vdprintf(int fd, const char *format, va_list ap)
+int	ft_fputi(int num, int fd)
 {
-	int	ret;
-	int	w_ret;
+	long long	lnum;
+	int			ret;
+	int			wret;
 
 	ret = 0;
-	while (*format)
+	lnum = (long long)num;
+	if (num < 0)
 	{
-		if (*format == '%')
-		{
-			format++;
-			w_ret = ft_printf_switch(format, ap, fd);
-			if (w_ret < 0)
-				return (-1);
-			ret += w_ret;
-		}
-		else
-		{
-			w_ret = ft_putc(*format, fd);
-			if (w_ret < 0)
-				return (-1);
-			ret += w_ret;
-		}
-		format++;
+		wret = ft_fputc('-', fd);
+		if (wret < 0)
+			return (-1);
+		lnum *= -1;
+		ret += wret;
 	}
+	wret = ft_uitoa_base((unsigned int)lnum, BASE_10, fd);
+	if (wret < 0)
+		return (-1);
+	ret += wret;
 	return (ret);
 }

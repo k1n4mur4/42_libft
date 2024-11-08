@@ -1,35 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isize.c                                         :+:      :+:    :+:   */
+/*   ft_ulltoa_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/12 10:23:26 by kinamura          #+#    #+#             */
-/*   Updated: 2024/11/08 18:37:58 by kinamura         ###   ########.fr       */
+/*   Created: 2024/11/08 18:35:13 by kinamura          #+#    #+#             */
+/*   Updated: 2024/11/08 18:42:20 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-size_t	ft_isize(int n, int base)
+int	ft_ulltoa_base(unsigned long long num, char *base, int fd)
 {
-	long long	ln;
-	size_t		ret;
+	int		ret;
+	int		wret;
+	int		base_len;
+	char	n;
 
-	ln = n;
-	if (n == 0)
-		return (1);
 	ret = 0;
-	if (ln < 0)
+	base_len = ft_strlen(base);
+	if (num >= (unsigned long long)base_len)
 	{
-		ln = -ln;
-		ret++;
+		wret = ft_uitoa_base(num / base_len, base, fd);
+		if (wret < 0)
+			return (-1);
+		ret += wret;
 	}
-	while (ln != 0)
-	{
-		ret++;
-		ln /= base;
-	}
+	n = base[num % base_len];
+	wret = (ft_fputc(n, fd));
+	if (wret < 0)
+		return (-1);
+	ret += wret;
 	return (ret);
 }

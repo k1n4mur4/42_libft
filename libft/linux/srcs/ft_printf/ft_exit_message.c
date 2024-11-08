@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   ft_exit_message.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/31 20:29:24 by kinamura          #+#    #+#             */
-/*   Updated: 2024/11/01 03:06:50 by ubuntu           ###   ########.fr       */
+/*   Created: 2024/11/01 03:03:48 by ubuntu            #+#    #+#             */
+/*   Updated: 2024/11/08 21:08:20 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_error(const char *format, ...)
+void	ft_exit_message(int status, const char *format, ...)
 {
 	va_list	ap;
 
 	va_start(ap, format);
 	ft_vdprintf(STDERR_FILENO, format, ap);
 	va_end(ap);
-	exit(EXIT_FAILURE);
+	exit(status);
 }

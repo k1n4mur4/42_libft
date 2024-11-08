@@ -1,28 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_uisize.c                                        :+:      :+:    :+:   */
+/*   ft_uitoa_base.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/14 00:26:14 by kinamura          #+#    #+#             */
-/*   Updated: 2024/11/08 18:38:23 by kinamura         ###   ########.fr       */
+/*   Created: 2024/11/08 18:35:18 by kinamura          #+#    #+#             */
+/*   Updated: 2024/11/08 18:42:01 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-size_t	ft_uisize(unsigned int n, int base)
+int	ft_uitoa_base(unsigned int num, char *base, int fd)
 {
-	size_t	size;
+	int		ret;
+	int		wret;
+	int		base_len;
+	char	n;
 
-	if (n == 0)
-		return (1);
-	size = 0;
-	while (n != 0)
+	ret = 0;
+	base_len = ft_strlen(base);
+	if (num >= (unsigned int)base_len)
 	{
-		size++;
-		n /= (unsigned int)base;
+		wret = ft_uitoa_base(num / base_len, base, fd);
+		if (wret < 0)
+			return (-1);
+		ret += wret;
 	}
-	return (size);
+	n = base[num % base_len];
+	wret = (ft_fputc(n, fd));
+	if (wret < 0)
+		return (-1);
+	ret += wret;
+	return (ret);
 }

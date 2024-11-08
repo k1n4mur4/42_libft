@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:45:34 by kinamura          #+#    #+#             */
-/*   Updated: 2024/11/01 03:19:40 by ubuntu           ###   ########.fr       */
+/*   Updated: 2024/11/08 21:06:13 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <stdint.h>
 # include <fcntl.h>
 # include <stdio.h>
-# include "ft_printf.h"
 # include "get_next_line.h"
 
 typedef struct s_list
@@ -65,13 +64,14 @@ void				*ft_memcpy(void *dst, const void *src, size_t n);
 void				*ft_memmove(void *dst, const void *src, size_t len);
 void				*ft_memset(void *b, int c, size_t len);
 // stdio
-void				ft_error(const char *format, ...);
 void				ft_exit_message(int status, const char *format, ...);
+int					ft_fopen(char *filename, const char *mode);
+size_t				ft_isize(int n, int base);
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char *s, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
-int					ft_fopen(char *filename, const char *mode);
+size_t				ft_uisize(unsigned int n, int base);
 // stdlib
 int					ft_atoi(const char *str);
 long				ft_atol(const char *str);

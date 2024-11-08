@@ -16,11 +16,39 @@ STDIO_DIR	=	$(SRCS_DIR)/stdio
 STDLIB_DIR	=	$(SRCS_DIR)/stdlib
 STRING_DIR	=	$(SRCS_DIR)/string
 
-INCLUDES	=	./includes
+INCLUDES	=	-I ./includes
 
-SRCS		=	$(wildcard $(SRCS_DIR)/*.c $(CTYPE_DIR)/*.c $(FREE_DIR)/*.c $(LIST_DIR)/*.c $(MATH_DIR)/*.c \
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S), Darwin)
+	MAC_DIR		=	./mac
+	MSRCS_DIR	=	$(MAC_DIR)/srcs
+	PRINTF_DIR	=	$(MSRCS_DIR)/ft_printf
+	INCLUDES	+=	-I $(MAC_DIR)/includes
+else
+	LINUX_DIR	=	./linux
+	LSRCS_DIR	=	$(LINUX_DIR)/srcs
+	PRINTF_DIR	=	$(LSRCS_DIR)/ft_printf
+	INCLUDES	+=	-I $(LINUX_DIR)/includes
+endif
+
+PRINTF_SRCS	=	$(PRINTF_DIR)/ft_dprintf.c \
+				$(PRINTF_DIR)/ft_fputi.c \
+				$(PRINTF_DIR)/ft_fputs.c \
+				$(PRINTF_DIR)/ft_fputx.c \
+				$(PRINTF_DIR)/ft_uitoa_base.c \
+				$(PRINTF_DIR)/ft_vdprintf.c \
+				$(PRINTF_DIR)/ft_fputc.c \
+				$(PRINTF_DIR)/ft_fputp.c \
+				$(PRINTF_DIR)/ft_fputu.c \
+				$(PRINTF_DIR)/ft_printf.c \
+				$(PRINTF_DIR)/ft_ulltoa_base.c \
+				$(PRINTF_DIR)/ft_vprintf.c \
+
+COMMON_SRCS	=	$(wildcard $(SRCS_DIR)/*.c $(CTYPE_DIR)/*.c $(FREE_DIR)/*.c $(LIST_DIR)/*.c $(MATH_DIR)/*.c \
 					$(MEMORY_DIR)/*.c $(STDIO_DIR)/*.c $(MATH_DIR)/*.c $(STDLIB_DIR)/*.c \
-					$(GNL_DIR)/*.c $(PRINTF_DIR)/*.c $(STRING_DIR)/*.c $(GNL_DIR)/*.c)
+					$(GNL_DIR)/*.c $(STRING_DIR)/*.c $(GNL_DIR)/*.c)
+
+SRCS		=	$(COMMON_SRCS) $(PRINTF_SRCS)
 OBJS		=	$(SRCS:.c=.o)
 
 RESET		=	\033[0m
@@ -42,7 +70,7 @@ $(NAME): $(OBJS)
 	@echo "$(BOLD)$(LIGHT_BLUE)Create $(NAME)$(RESET)"
 
 .c.o:
-	@$(CC) $(CFLAGS) -I $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning objects...$(RESET)"
