@@ -6,7 +6,7 @@
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 06:15:30 by kinamura          #+#    #+#             */
-/*   Updated: 2024/09/14 02:06:53 by kinamura         ###   ########.fr       */
+/*   Updated: 2024/11/08 22:56:24 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_fputs(const char *s, int fd)
 	int	ret;
 
 	if (!s)
-		ret = write(fd, "(null)", 6);
+		ret = write(fd, "(nil)", 5);
 	else
 		ret = write(fd, s, ft_strlen(s));
 	if (ret < 0)
