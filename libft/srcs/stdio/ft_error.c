@@ -5,19 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/31 20:29:24 by kinamura          #+#    #+#             */
-/*   Updated: 2024/11/08 21:51:10 by kinamura         ###   ########.fr       */
+/*   Created: 2024/11/11 15:51:39 by kinamura          #+#    #+#             */
+/*   Updated: 2024/11/11 15:51:40 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "libft.h"
 
-void	ft_error(const char *format, ...)
+void	ft_error(int status, char *s)
 {
-	va_list	ap;
-
-	va_start(ap, format);
-	ft_vdprintf(STDERR_FILENO, format, ap);
-	va_end(ap);
-	exit(EXIT_FAILURE);
+	perror(s);
+	exit(status);
 }
