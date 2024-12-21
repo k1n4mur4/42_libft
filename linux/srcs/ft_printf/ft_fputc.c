@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   ft_fputc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 15:51:39 by kinamura          #+#    #+#             */
-/*   Updated: 2024/11/11 15:51:40 by kinamura         ###   ########.fr       */
+/*   Created: 2024/09/12 06:15:05 by kinamura          #+#    #+#             */
+/*   Updated: 2024/12/22 01:33:25 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_error(int status, char *s)
+int	ft_fputc(int c, int fd)
 {
-	perror(s);
-	exit(status);
+	return (write(fd, &c, 1));
 }
