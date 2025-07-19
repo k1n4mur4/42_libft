@@ -6,7 +6,7 @@
 /*   By: kinamura <kinamura@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 22:06:26 by kinamura          #+#    #+#             */
-/*   Updated: 2025/07/20 00:45:57 by kinamura         ###   ########.fr       */
+/*   Updated: 2025/07/20 02:59:48 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,12 @@ static void	set_suffix(char *suffix)
 	{
 		r = ft_random();
 		r = r % 62;
-		if (r < 10) {
+		if (r < 10)
 			suffix[i] = '0' + r;
-		} else if (r < 36) {
+		else if (r < 36)
 			suffix[i] = 'a' + (r - 10);
-		} else {
+		else
 			suffix[i] = 'A' + (r - 36);
-		}
 		i++;
 	}
 }

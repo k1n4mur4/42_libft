@@ -6,7 +6,7 @@
 /*   By: kinamura <kinamura@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:45:34 by kinamura          #+#    #+#             */
-/*   Updated: 2025/07/20 02:39:59 by kinamura         ###   ########.fr       */
+/*   Updated: 2025/07/20 03:00:44 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <stdio.h>
 # include "get_next_line.h"
 
-#define SUFFIX_TEMP "XXXXXX"
+# define SUFFIX_TEMP	"XXXXXX"
 
 typedef struct s_list
 {
@@ -87,6 +87,7 @@ void				ft_swap(int *a, int *b);
 // string
 char				**ft_split(char const *s, char c);
 char				*ft_strchr(const char *s, int c);
+int					ft_strcmp(const char *s1, const char *s2);
 char				*ft_strdup(const char *s1);
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 char				*ft_strjoin(char const *s1, char const *s2);
