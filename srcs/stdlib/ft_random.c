@@ -6,7 +6,7 @@
 /*   By: kinamura <kinamura@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 19:19:53 by kinamura          #+#    #+#             */
-/*   Updated: 2025/07/20 03:06:24 by kinamura         ###   ########.fr       */
+/*   Updated: 2025/07/20 03:06:56 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ long	ft_random(void)
 
 	rand += (long)&stack;
 	rand ^= rand << 5;
-	rand ^= rand << 13;
-	rand ^= rand >> 17;
+	rand ^= rand >> 13;
+	rand ^= rand << 17;
 	return (rand);
 }
