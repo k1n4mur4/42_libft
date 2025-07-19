@@ -86,6 +86,7 @@ STDLIB_SRCS	=	$(STDLIB_DIR)/ft_atoi.c \
 				$(STDLIB_DIR)/ft_calloc.c \
 				$(STDLIB_DIR)/ft_hextoi.c \
 				$(STDLIB_DIR)/ft_itoa.c \
+				$(STDLIB_DIR)/ft_mkstemp.c \
 				$(STDLIB_DIR)/ft_mktemp.c \
 				$(STDLIB_DIR)/ft_random.c \
 				$(STDLIB_DIR)/ft_strtol.c \

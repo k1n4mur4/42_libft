@@ -6,7 +6,7 @@
 /*   By: kinamura <kinamura@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/19 22:06:26 by kinamura          #+#    #+#             */
-/*   Updated: 2025/07/19 22:14:27 by kinamura         ###   ########.fr       */
+/*   Updated: 2025/07/20 00:45:57 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*ft_mktemp(char *template)
 	char	*suffix;
 
 	len = ft_strlen(template);
-	suffix = &template[len - 6];
+	suffix = &template[len - ft_strlen(SUFFIX_TEMP)];
 	if (!ft_strncmp(suffix, SUFFIX_TEMP, ft_strlen(SUFFIX_TEMP)))
 	{
 		while (1)

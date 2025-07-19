@@ -6,7 +6,7 @@
 /*   By: kinamura <kinamura@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:45:34 by kinamura          #+#    #+#             */
-/*   Updated: 2025/07/19 22:14:40 by kinamura         ###   ########.fr       */
+/*   Updated: 2025/07/20 02:39:59 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ long				ft_atol(const char *str);
 void				*ft_calloc(size_t count, size_t size);
 int					ft_hextoi(int c);
 char				*ft_itoa(int n);
+int					ft_mkstemp(char *template);
 char				*ft_mktemp(char *template);
 long				ft_random(void);
 long				ft_strtol(const char *str, char **endptr, int base);
