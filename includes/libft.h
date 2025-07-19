@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kinamura <kinamura@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kinamura <kinamura@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:45:34 by kinamura          #+#    #+#             */
-/*   Updated: 2024/12/21 23:54:55 by kinamura         ###   ########.fr       */
+/*   Updated: 2025/07/19 22:14:40 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include "get_next_line.h"
+
+#define SUFFIX_TEMP "XXXXXX"
 
 typedef struct s_list
 {
@@ -77,6 +79,8 @@ long				ft_atol(const char *str);
 void				*ft_calloc(size_t count, size_t size);
 int					ft_hextoi(int c);
 char				*ft_itoa(int n);
+char				*ft_mktemp(char *template);
+long				ft_random(void);
 long				ft_strtol(const char *str, char **endptr, int base);
 void				ft_swap(int *a, int *b);
 // string
