@@ -6,7 +6,7 @@
 /*   By: kinamura <kinamura@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 19:32:17 by kinamura          #+#    #+#             */
-/*   Updated: 2025/07/20 03:04:14 by kinamura         ###   ########.fr       */
+/*   Updated: 2025/07/20 15:59:16 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strdup(const char *s1)
 	char	*str;
 	size_t	size;
 
+	if (!s1)
+		return (NULL);
 	size = ft_strlen(s1);
 	str = (char *)malloc(sizeof(char) * (size + 1));
 	if (str == NULL)
