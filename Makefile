@@ -3,21 +3,36 @@ CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror
 RM			=	rm -rf
 AR			=	ar rcs
-
-SRCS_DIR    =	./srcs
+MAKEFLAGS	+=	--no-print-directory
 
 # OS Libft
-UNAME_S     = $(shell uname -s)
+UNAME_S		=	$(shell uname -s)
 ifeq ($(UNAME_S), Darwin)
-    OS_DIR  = ./mac
+	OS_DIR	=	./mac
 else
-    OS_DIR  = ./linux
+	OS_DIR	=	./linux
 endif
 
-INCLUDES	=	-I ./includes -I $(OS_DIR)/includes
+######################### Directories #########################
+SRCS_DIR	=	./srcs
+CTYPE_DIR	=	$(SRCS_DIR)/ctype
+FREE_DIR	=	$(SRCS_DIR)/free
+GNL_DIR		=	$(SRCS_DIR)/get_next_line
+LIST_DIR	=	$(SRCS_DIR)/list
+MATH_DIR	=	$(SRCS_DIR)/math
+MEM_DIR		=	$(SRCS_DIR)/memory
+STDIO_DIR	=	$(SRCS_DIR)/stdio
+STDLIB_DIR	=	$(SRCS_DIR)/stdlib
+STRING_DIR	=	$(SRCS_DIR)/string
 
+# OS Libft
 OS_SRCS_DIR	=	$(OS_DIR)/srcs
 PRINTF_DIR	=	$(OS_SRCS_DIR)/ft_printf
+
+
+
+
+######################### Sources #########################
 PRINTF_SRCS	=	$(PRINTF_DIR)/ft_dprintf.c \
 				$(PRINTF_DIR)/ft_fputc.c \
 				$(PRINTF_DIR)/ft_fputi.c \
@@ -33,17 +48,7 @@ PRINTF_SRCS	=	$(PRINTF_DIR)/ft_dprintf.c \
 
 OS_SRCS		=	$(PRINTF_SRCS)
 
-# common Libft
-CTYPE_DIR	=	$(SRCS_DIR)/ctype
-FREE_DIR	=	$(SRCS_DIR)/free
-GNL_DIR		=	$(SRCS_DIR)/get_next_line
-LIST_DIR	=	$(SRCS_DIR)/list
-MATH_DIR	=	$(SRCS_DIR)/math
-MEM_DIR		=	$(SRCS_DIR)/memory
-STDIO_DIR	=	$(SRCS_DIR)/stdio
-STDLIB_DIR	=	$(SRCS_DIR)/stdlib
-STRING_DIR	=	$(SRCS_DIR)/string
-
+### Common
 CTYPE_SRCS	=	$(CTYPE_DIR)/ft_isalnum.c \
 				$(CTYPE_DIR)/ft_isalpha.c \
 				$(CTYPE_DIR)/ft_isascii.c \
@@ -110,42 +115,66 @@ STRING_SRCS	=	$(STRING_DIR)/ft_split.c \
 
 SRCS		=	$(OS_SRCS) $(CTYPE_SRCS) $(FREE_SRCS) $(GNL_SRCS) $(LIST_SRCS) $(MATH_SRCS) $(MEM_SRCS) \
 				$(STDIO_SRCS) $(STDLIB_SRCS) $(STRING_SRCS)
-OBJS		=	$(SRCS:.c=.o)
 
+
+
+######################### Objects #########################
+OBJS_DIR	=	./objs
+
+# Convert both SRCS_DIR and OS_DIR paths to OBJS_DIR
+OBJS		=	$(patsubst $(SRCS_DIR)/%.c,$(OBJS_DIR)/%.o,$(filter $(SRCS_DIR)/%.c,$(SRCS))) \
+				$(patsubst $(OS_DIR)/%.c,$(OBJS_DIR)/%.o,$(filter $(OS_DIR)/%.c,$(SRCS)))
+
+
+
+######################### Includes #########################
+INCLUDES	=	-I ./includes -I $(OS_DIR)/includes
+
+
+
+######################### UI/UX #########################
 RESET		=	\033[0m
 BOLD		=	\033[1m
 LIGHT_BLUE	=	\033[94m
 YELLOW		=	\033[93m
 
-TOTAL_FILES := $(words $(OBJS))
-CURRENT_FILE := 0
+### Progress Bar
+TOTAL_FILES	:=	$(words $(OBJS))
+CURRENT_FILE :=	0
 
 define progress
-    @CURRENT_PERCENT=$$(expr $(CURRENT_FILE) \* 100 / $(TOTAL_FILES)); \
-    printf "$(YELLOW)Progress: %3d%% (%d/%d)$(RESET)\r" $$CURRENT_PERCENT $(CURRENT_FILE) $(TOTAL_FILES); \
-    $(eval CURRENT_FILE=$$(($(CURRENT_FILE)+1)))
+	@$(eval COMPILED=$(shell echo $$(expr $(COMPILED) + 1)))
+	@CURRENT_PERCENT=$$(expr $(COMPILED) \* 100 / $(TOTAL_FILES)); \
+	printf "\r\033[K$(YELLOW)[%3d%%] Compiling: $<$(RESET)\r" $$CURRENT_PERCENT
 endef
 
+
+
+######################### Targets #########################
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	@$(AR) $(NAME) $(OBJS)
-	@echo "$(BOLD)$(LIGHT_BLUE)$(NAME) created successfully!$(RESET)"
+	@echo "\033[K$(BOLD)$(LIGHT_BLUE)$(NAME) created successfully!$(RESET)"
 
-%.o: %.c
-	@$(eval CURRENT_FILE=$(shell expr $(CURRENT_FILE) + 1))
-	@CURRENT_PERCENT=$$(expr $(CURRENT_FILE) \* 100 / $(TOTAL_FILES)); \
-	printf "$(YELLOW)Progress: %3d%% (%d/%d)$(RESET)\r" $$CURRENT_PERCENT $(CURRENT_FILE) $(TOTAL_FILES); \
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
+	@mkdir -p $(dir $@)
+	@$(progress)
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(OBJS_DIR)/%.o: $(OS_DIR)/%.c
+	@mkdir -p $(dir $@)
+	@$(progress)
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning objects...$(RESET)"
-	@$(RM) $(OBJS)
+	@$(RM) $(OBJS) $(OBJS_DIR)
 	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning Complete!$(RESET)"
 
 fclean:
 	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning $(NAME)...$(RESET)"
-	@$(RM) $(OBJS) $(NAME)
+	@$(RM) $(OBJS) $(OBJS_DIR) $(NAME)
 	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning $(NAME) Complete!$(RESET)"
 
 re: fclean all
