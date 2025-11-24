@@ -29,9 +29,6 @@ STRING_DIR	=	$(SRCS_DIR)/string
 OS_SRCS_DIR	=	$(OS_DIR)/srcs
 PRINTF_DIR	=	$(OS_SRCS_DIR)/ft_printf
 
-
-
-
 ######################### Sources #########################
 PRINTF_SRCS	=	$(PRINTF_DIR)/ft_dprintf.c \
 				$(PRINTF_DIR)/ft_fputc.c \
@@ -113,10 +110,16 @@ STRING_SRCS	=	$(STRING_DIR)/ft_split.c \
 				$(STRING_DIR)/ft_strtrim.c \
 				$(STRING_DIR)/ft_substr.c
 
-SRCS		=	$(OS_SRCS) $(CTYPE_SRCS) $(FREE_SRCS) $(GNL_SRCS) $(LIST_SRCS) $(MATH_SRCS) $(MEM_SRCS) \
-				$(STDIO_SRCS) $(STDLIB_SRCS) $(STRING_SRCS)
-
-
+SRCS		=	$(OS_SRCS) \
+				$(CTYPE_SRCS) \
+				$(FREE_SRCS) \
+				$(GNL_SRCS) \
+				$(LIST_SRCS) \
+				$(MATH_SRCS) \
+				$(MEM_SRCS) \
+				$(STDIO_SRCS) \
+				$(STDLIB_SRCS) \
+				$(STRING_SRCS)
 
 ######################### Objects #########################
 OBJS_DIR	=	./objs
@@ -125,57 +128,56 @@ OBJS_DIR	=	./objs
 OBJS		=	$(patsubst $(SRCS_DIR)/%.c,$(OBJS_DIR)/%.o,$(filter $(SRCS_DIR)/%.c,$(SRCS))) \
 				$(patsubst $(OS_DIR)/%.c,$(OBJS_DIR)/%.o,$(filter $(OS_DIR)/%.c,$(SRCS)))
 
-
-
 ######################### Includes #########################
 INCLUDES	=	-I ./includes -I $(OS_DIR)/includes
 
-
-
 ######################### UI/UX #########################
-RESET		=	\033[0m
-BOLD		=	\033[1m
-LIGHT_BLUE	=	\033[94m
-YELLOW		=	\033[93m
-
 ### Progress Bar
-TOTAL_FILES	:=	$(words $(OBJS))
-CURRENT_FILE :=	0
+WIDTH		:=		$(shell tput cols)
+BAR_WIDTH	:=	$(shell echo $$(($(WIDTH) - 20)))
 
-define progress
-	@$(eval COMPILED=$(shell echo $$(expr $(COMPILED) + 1)))
-	@CURRENT_PERCENT=$$(expr $(COMPILED) \* 100 / $(TOTAL_FILES)); \
-	printf "\r\033[K$(YELLOW)[%3d%%] Compiling: $<$(RESET)\r" $$CURRENT_PERCENT
+TOTAL		:=		$(words $(OBJS))
+CURRENT		:=		0
+define show_progress
+	$(eval CURRENT=$(shell echo $$(($(CURRENT)+1))))
+	@printf "\r["
+	@for i in $$(seq 1 $(BAR_WIDTH)); do \
+		if [ $$i -le $$(($(CURRENT) * $(BAR_WIDTH) / $(TOTAL))) ]; then \
+			printf "="; \
+		else \
+			printf " "; \
+		fi; \
+	done
+	@printf "] $(CURRENT)/$(TOTAL) ($$(($(CURRENT) * 100 / $(TOTAL)))%%)"
 endef
-
-
 
 ######################### Targets #########################
 all: $(NAME)
 
 $(NAME): $(OBJS)
+	@echo "\nLinking..."
 	@$(AR) $(NAME) $(OBJS)
-	@echo "\033[K$(BOLD)$(LIGHT_BLUE)$(NAME) created successfully!$(RESET)"
+	@echo "Build complete! Executable: $(NAME)"
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@mkdir -p $(dir $@)
-	@$(progress)
+	$(call show_progress)
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJS_DIR)/%.o: $(OS_DIR)/%.c
 	@mkdir -p $(dir $@)
-	@$(progress)
+	@$(show_progress)
 	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning objects...$(RESET)"
+	@echo "Cleaning up..."
 	@$(RM) $(OBJS) $(OBJS_DIR)
-	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning Complete!$(RESET)"
+	@echo "Clean objects complete."
 
 fclean:
-	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning $(NAME)...$(RESET)"
+	@echo "Cleaning up..."
 	@$(RM) $(OBJS) $(OBJS_DIR) $(NAME)
-	@echo "$(BOLD)$(LIGHT_BLUE)Cleaning $(NAME) Complete!$(RESET)"
+	@echo "Clean all complete."
 
 re: fclean all
 
