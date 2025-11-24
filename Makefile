@@ -133,11 +133,11 @@ INCLUDES	=	-I ./includes -I $(OS_DIR)/includes
 
 ######################### UI/UX #########################
 ### Progress Bar
-WIDTH		:=		$(shell tput cols)
+WIDTH		:=	$(shell tput cols)
 BAR_WIDTH	:=	$(shell echo $$(($(WIDTH) - 20)))
 
-TOTAL		:=		$(words $(OBJS))
-CURRENT		:=		0
+TOTAL		:=	$(words $(OBJS))
+CURRENT		:=	0
 define show_progress
 	$(eval CURRENT=$(shell echo $$(($(CURRENT)+1))))
 	@if [ $(CURRENT) -eq 1 ]; then \
