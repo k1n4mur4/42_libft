@@ -140,6 +140,9 @@ TOTAL		:=		$(words $(OBJS))
 CURRENT		:=		0
 define show_progress
 	$(eval CURRENT=$(shell echo $$(($(CURRENT)+1))))
+	@if [ $(CURRENT) -eq 1 ]; then \
+		printf "Compiling sources for $(NAME)...\n"; \
+	fi
 	@printf "\r["
 	@for i in $$(seq 1 $(BAR_WIDTH)); do \
 		if [ $$i -le $$(($(CURRENT) * $(BAR_WIDTH) / $(TOTAL))) ]; then \
