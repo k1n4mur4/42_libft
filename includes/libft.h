@@ -6,7 +6,7 @@
 /*   By: kinamura <kinamura@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 13:45:34 by kinamura          #+#    #+#             */
-/*   Updated: 2025/07/20 16:10:44 by kinamura         ###   ########.fr       */
+/*   Updated: 2025/12/27 17:50:37 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include "get_next_line.h"
+# include "ft_math.h"
 
 # define SUFFIX_TEMP	"XXXXXX"
 
@@ -54,10 +55,6 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
 t_list				*ft_lstnew(void *content);
 int					ft_lstsize(t_list *lst);
-// math
-int					ft_abs(int i);
-int					ft_max(int a, int b);
-int					ft_min(int a, int b);
 // memory
 void				ft_bzero(void *s, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
