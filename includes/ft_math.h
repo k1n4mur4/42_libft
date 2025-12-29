@@ -6,19 +6,36 @@
 /*   By: kinamura <kinamura@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 17:49:14 by kinamura          #+#    #+#             */
-/*   Updated: 2025/12/27 18:06:39 by kinamura         ###   ########.fr       */
+/*   Updated: 2025/12/29 11:00:07 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_MATH_H
 # define FT_MATH_H
 
-#include "math.h"
+# include <math.h>
+# include <stdlib.h>
 
+typedef struct s_vec3
+{
+	double	x;
+	double	y;
+	double	z;
+}				t_vec3;
 
 // math
 int					ft_abs(int i);
 int					ft_max(int a, int b);
 int					ft_min(int a, int b);
+
+// vec3
+t_vec3				*vec3_init(double x, double y, double z);
+
+// vec
+t_vec3				vec3_add(t_vec3 a, t_vec3 b);
+t_vec3				vec3_sub(t_vec3 a, t_vec3 b);
+t_vec3				vec3_mul(t_vec3 v, double t);
+double				vec3_dot(t_vec3 a, t_vec3 b);
+double				vec3_length(t_vec3 v);
 
 #endif
