@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec3_init.c                                        :+:      :+:    :+:   */
+/*   vec3_normalize.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kinamura <kinamura@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/29 11:09:22 by kinamura          #+#    #+#             */
-/*   Updated: 2025/12/29 11:13:24 by kinamura         ###   ########.fr       */
+/*   Created: 2025/12/29 11:11:06 by kinamura          #+#    #+#             */
+/*   Updated: 2025/12/29 11:11:09 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_math.h"
 
-t_vec3	*vec3_init(t_vec3 *new, double x, double y, double z)
+t_vec3	vec3_normalize(t_vec3 v)
 {
-	if (!new)
-	{
-		new = vec3_alloc();
-		if (!new)
-			return (NULL);
-	}
-	new->x = x;
-	new->y = y;
-	new->z = z;
-	return (new);
+	double	length;
+
+	length = vec3_length(v);
+	if (length == 0.0)
+		return (vec3(0.0, 0.0, 0.0));
+	return (vec3_mul(v, 1.0 / length));
 }
