@@ -6,11 +6,11 @@
 /*   By: kinamura <kinamura@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/29 10:51:12 by kinamura          #+#    #+#             */
-/*   Updated: 2025/12/29 11:06:42 by kinamura         ###   ########.fr       */
+/*   Updated: 2025/12/29 12:15:07 by kinamura         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_math.h"
+#include "libft.h"
 
 t_vec3	*vec3_alloc(void)
 {
